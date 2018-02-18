@@ -1,0 +1,15 @@
+{
+  "path": "termbank/_mapping/fiche",
+  "properties": {
+    "german": {
+      "type": "completion",
+      "analyzer": "simple",
+      "search_analyzer": "simple"
+    },
+    "french": {
+      "type": "completion",
+      "analyzer": "simple",
+      "search_analyzer": "simple"
+    }
+  }
+}

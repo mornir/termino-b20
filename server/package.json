@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "elasticsearch": "^14.1.0",
+    "express": "^4.16.2",
+    "logdna": "^2.0.0",
+    "morgan": "^1.9.0",
+    "node-env-file": "^0.1.8"
+  }
+}
