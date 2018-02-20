@@ -12,7 +12,8 @@ router.get('/test', (req, res) => {
   res.json({ test: 'hello' })
 })
 
-/* router.get('/suggest/:text/:size')
-router.get('/all', starsController.getAllStars) */
+/* router.get('/suggest/:text/:size') */
+router.get('/all', terminoController.getAllTerms)
+router.get('/fuzzy/:text/:size', terminoController.getSuggestions)
 
 module.exports = router
