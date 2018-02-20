@@ -14,6 +14,6 @@ router.get('/test', (req, res) => {
 
 /* router.get('/suggest/:text/:size') */
 router.get('/all', terminoController.getAllTerms)
-router.get('/fuzzy/:text/:size', terminoController.getSuggestions)
+router.get('/suggest/:text/:size', terminoController.getSuggestions)
 
 module.exports = router

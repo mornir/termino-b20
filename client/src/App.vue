@@ -4,18 +4,32 @@
     <main>
       <div class="search">
 <!--     <SearchInput :items="searchResults" @input="getSuggestions" :isAsync="true"/> -->
-    <input type="text" class="searchInput" />
-    <button class="searchButton">Get Details</button>
+          <div class="autcompleteSearch">
+          <input type="text" class="searchInput" v-model="search" @input="onChange"/>
+          <ul class="autocomplete" v-show="isOpen">
+
+            <li v-for="term in searchResults" :key="term.text" @click="showTerm(term._source)">{{term.text}}</li>
+
+          </ul>
     </div>
+    
+    <button class="searchButton">Suchen</button>
+    </div>
+
     <div class="results">
-      <ul>
-        <li>bread</li>
-        <li>butter</li>
-        <li>oil</li>
-        <li>tomatoes</li>
-        <li>cheese</li>
-        <li>chicken</li>
-      </ul>
+      <div>
+        <span>id:</span>
+      <span>{{fiche.id}}</span>
+      </div>
+          <div>
+        <span>german:
+        </span>
+      <span>{{fiche.german}}</span>
+      </div>
+          <div>
+        <span>french:</span>
+      <span>{{fiche.french}}</span>
+      </div>
     </div>
     </main>
   </div>
@@ -30,18 +44,31 @@ export default {
   data() {
     return {
       searchResults: [],
+      search: '',
+      isOpen: false,
+      fiche: {},
     }
   },
   components: {
     SearchInput,
   },
   methods: {
+    onChange() {
+      if (!this.search) return
+
+      console.log(this.search)
+      this.getSuggestions()
+    },
+    showTerm(term) {
+      this.isOpen = false
+      this.fiche = term
+      console.log(term)
+    },
     getJSON() {
       axios
         .get(`http://localhost:8081/test`)
         .then(res => {
-          // JSON responses are automatically parsed.
-          console.log(res.data)
+          console.log(res)
         })
         .catch(err => {
           console.log(err)
@@ -49,10 +76,11 @@ export default {
     },
     getSuggestions() {
       axios
-        .get(`http://localhost:8081/all`)
+        .get(`http://localhost:8081/suggest/${this.search}/10`)
         .then(res => {
-          // JSON responses are automatically parsed.
-          console.log(res.data)
+          this.isOpen = true
+          this.searchResults = res.data
+          //console.log(res.data)
         })
         .catch(err => {
           console.log(err)
@@ -63,53 +91,97 @@ export default {
 </script>
 
 <style>
-header {
-  background-color: blue;
-  color: white;
-  text-align: center;
-  height: 10vh;
-  line-height: 10vh;
-  font-size: 2rem;
-}
-
 body {
-  margin: 0;
-  font-size: 16px;
+  font-size: 10px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  background-color: #cccccc;
 }
 
+header {
+  padding: 1rem;
+  display: block;
+  margin: 0 auto 4rem;
+  color: #ffffff;
+  text-align: center;
+  font-size: 5rem;
+  background-color: #16a085;
+  font-weight: 400;
+}
 main {
-  display: grid;
-  height: 90vh;
-  grid-template-rows: 1fr 2fr;
-  grid-row-gap: 2rem;
+  display: flex;
+  flex-direction: column;
   width: 80%;
   margin: auto;
 }
-
 .search {
-  align-self: end;
-  justify-self: center;
-  display: flex;
-  height: 5rem;
   width: 100%;
-  margin: 0 2rem;
+  display: flex;
+  align-items: start;
 }
 
-.searchButton {
-  font-size: 1.5rem;
-  margin-left: 1rem;
-  flex-grow: 1;
+.autcompleteSearch {
+  flex-grow: 2;
 }
 
 .searchInput {
-  flex-grow: 3;
-  font-size: 2rem;
+  width: 100%;
+  font-size: 2.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  border: none;
 }
 
-.results {
-  background: red;
-  border-radius: 2px;
-  margin-bottom: 1rem;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+.searchButton {
+  flex-grow: 1;
+  background-color: #16a085;
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-left: 1rem;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.autocomplete {
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+.autocomplete li {
+  list-style: none;
+  padding: 1rem;
+  border-bottom: thin solid #eeeeee;
+  font-size: 1.6rem;
+  color: #333333;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 700;
+}
+.result {
+  margin-top: 4rem;
+}
+.player {
+  background-color: #ffffff;
+  padding: 3rem 2rem;
+  display: block;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.player * {
+  padding: 0.5rem 0;
+}
+.player h2,
+.player p {
+  font-weight: 300;
+}
+.player h2 {
+  font-size: 2.2rem;
+}
+.player p {
+  font-size: 1.6rem;
 }
 </style>
