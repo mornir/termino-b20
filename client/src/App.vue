@@ -16,27 +16,15 @@
     <button class="searchButton">Suchen</button>
     </div>
 
-    <div class="results">
-      <div>
-        <span>id:</span>
-      <span>{{fiche.id}}</span>
-      </div>
-          <div>
-        <span>german:
-        </span>
-      <span>{{fiche.german}}</span>
-      </div>
-          <div>
-        <span>french:</span>
-      <span>{{fiche.french}}</span>
-      </div>
+    <div class="result" v-show="fiche.id">
+      <Fiche :data="fiche"/>
     </div>
     </main>
   </div>
 </template>
 
 <script>
-import SearchInput from './components/SearchInput.vue'
+import Fiche from './components/Fiche.vue'
 import axios from 'axios'
 
 export default {
@@ -50,7 +38,7 @@ export default {
     }
   },
   components: {
-    SearchInput,
+    Fiche,
   },
   methods: {
     onChange() {
@@ -158,30 +146,7 @@ main {
   color: #333333;
   cursor: pointer;
 }
-
-.bold {
-  font-weight: 700;
-}
 .result {
   margin-top: 4rem;
-}
-.player {
-  background-color: #ffffff;
-  padding: 3rem 2rem;
-  display: block;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-}
-.player * {
-  padding: 0.5rem 0;
-}
-.player h2,
-.player p {
-  font-weight: 300;
-}
-.player h2 {
-  font-size: 2.2rem;
-}
-.player p {
-  font-size: 1.6rem;
 }
 </style>
