@@ -5,7 +5,7 @@
       <div class="search">
 <!--     <SearchInput :items="searchResults" @input="getSuggestions" :isAsync="true"/> -->
           <div class="autcompleteSearch">
-          <input type="text" class="searchInput" v-model="search" @input="onChange"/>
+          <input type="text" class="searchInput" v-model.trim="search" @input="onChange"/>
           <ul class="autocomplete" v-show="isOpen">
 
             <li v-for="term in searchResults" :key="term.text" @click="showTerm(term._source)">{{term.text}}</li>
@@ -13,7 +13,7 @@
           </ul>
     </div>
     
-    <button class="searchButton" @click="search">Suchen</button>
+    <button class="searchButton" @click="searchButton">Suchen</button>
     </div>
 
     <div class="result" v-show="fiche.id">
@@ -74,8 +74,18 @@ export default {
           console.log(err)
         })
     },
-    search() {
+    searchButton() {
+      if (!this.search) return
       console.log('hello')
+
+      axios
+        .get(`http://localhost:8081/all`)
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
   },
 }

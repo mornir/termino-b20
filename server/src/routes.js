@@ -2,18 +2,10 @@ const express = require('express')
 const router = express.Router()
 const terminoController = require('./controllers/terminoController')
 
-router.post('/register', (req, res) => {
-  res.json({
-    message: `Hello ${req.body.email}! Your user was registered!`,
-  })
-})
-
-router.get('/test', (req, res) => {
-  res.json({ test: 'hello' })
-})
-
-/* router.get('/suggest/:text/:size') */
 router.get('/all', terminoController.getAllTerms)
+
 router.get('/suggest/:text/:size', terminoController.getSuggestions)
+
+router.get('/simple/:text/:size', terminoController.simpleSearch)
 
 module.exports = router

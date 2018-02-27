@@ -4,9 +4,10 @@ const es = require('../config/elasticsearch')
 const INDEX_NAME = 'termbank'
 const INDEX_TYPE = 'fiche'
 
-exports.getSuggestions = async (req, res, next) => {
-  console.log(req.params)
+// weird: if I remove 'async', I get errors
+exports.getSuggestions = (req, res, next) => {
   const { text, size } = req.params
+
   es
     .search({
       index: INDEX_NAME,
@@ -37,29 +38,14 @@ exports.getSuggestions = async (req, res, next) => {
       },
     })
     .then(response => {
-      // parse the answer into a single liste array of terms before returning to the client
-      /*       const frenchSuggestions = response.suggest.frenchSuggester[0].options
-      const germanSuggestions = response.suggest.germanSuggester[0].options
-      const frenchTerms = frenchSuggestions.map(suggestion => ({
-        id: suggestion._id,
-        text: suggestion.text,
-      }))
-      const germanTerms = germanSuggestions.map(suggestion => {
-        suggestion.text
-      })
-      res.json([...frenchTerms, ...germanTerms]) */
-
       const frenchSuggestions = response.suggest.frenchSuggester[0].options
       const germanSuggestions = response.suggest.germanSuggester[0].options
+      // logger.logger.log('Suggest players with first name or last name: ' + text)
       res.json([...frenchSuggestions, ...germanSuggestions])
     })
-    .catch(e => {
-      console.log("une erreur s'est produite:")
+    .catch(err => {
+      console.log("une erreur s'est produite:", err)
     })
-
-  logger.logger.log('Suggest players with first name or last name: ' + text)
-
-  return res.json(result)
 }
 
 exports.getAllTerms = (req, res, next) => {
@@ -73,13 +59,13 @@ exports.getAllTerms = (req, res, next) => {
         },
       },
     })
-    .then(
-      resp => {
-        const hits = resp.hits.hits
-        res.json(hits)
-      },
-      function(err) {
-        console.trace(err.message)
-      }
-    )
+    .then(resp => {
+      const hits = resp.hits.hits
+      res.json(hits)
+    })
+    .catch(err => {
+      console.trace(err.message)
+    })
 }
+
+exports.simpleSearch = (req, res, next) => {}
