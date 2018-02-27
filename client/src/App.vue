@@ -13,7 +13,7 @@
           </ul>
     </div>
     
-    <button class="searchButton">Suchen</button>
+    <button class="searchButton" @click="search">Suchen</button>
     </div>
 
     <div class="result" v-show="fiche.id">
@@ -73,6 +73,9 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    search() {
+      console.log('hello')
     },
   },
 }
