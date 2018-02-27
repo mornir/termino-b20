@@ -94,6 +94,18 @@ export default {
         this.arrowCounter = -1
       }
     },
+    handleClickOutside() {
+      this.isOpen = false
+      this.arrowCounter = -1
+    },
+  },
+  mounted() {
+    // close autocomplete box when click outside
+    document.addEventListener('click', this.handleClickOutside)
+  },
+  /* Not necessary since we only have one component, but I keep for future proof */
+  destroyed() {
+    document.removeEventListener('click', this.handleClickOutside)
   },
 }
 </script>
