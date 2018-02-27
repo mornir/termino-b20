@@ -3,12 +3,14 @@
     <header>Terminology der B20</header>
     <main>
       <div class="search">
-<!--     <SearchInput :items="searchResults" @input="getSuggestions" :isAsync="true"/> -->
           <div class="autcompleteSearch">
-          <input type="text" class="searchInput" v-model.trim="search" @input="onChange"/>
+          <input type="text" class="searchInput" v-model.trim="search" @input="onChange" @keyup.down="onArrowDown"
+    @keyup.up="onArrowUp"
+    @keyup.enter="onEnter"/>
           <ul class="autocomplete" v-show="isOpen">
 
-            <li v-for="term in searchResults" :key="term.text" @click="showTerm(term._source)">{{term.text}}</li>
+            <li v-for="(term, index) in results" :class="{ 'is-active': index === arrowCounter }"
+              :key="term.text" @click="showTerm(term) ">{{term.text}}</li>
 
           </ul>
     </div>
@@ -21,7 +23,7 @@
     </div>
 
     <div class="result" v-if="searchButtonPressed">
-      <Fiche :data="term._source" v-for="term in searchResults" :key="term.text"/>
+      <Fiche :data="term._source" v-for="term in results" :key="term.text"/>
     </div>
     </main>
   </div>
@@ -35,11 +37,12 @@ export default {
   name: 'app',
   data() {
     return {
-      searchResults: [],
+      results: [],
       search: '',
       isOpen: false,
       fiche: {},
       searchButtonPressed: false,
+      arrowCounter: -1,
     }
   },
   components: {
@@ -53,14 +56,15 @@ export default {
     showTerm(term) {
       this.searchButtonPressed = false
       this.isOpen = false
-      this.fiche = term
+      this.fiche = term._source
+      this.search = term.text
     },
     getSuggestions() {
       axios
         .get(`http://localhost:8081/suggest/${this.search}/10`)
         .then(res => {
           this.isOpen = true
-          this.searchResults = res.data
+          this.results = res.data
           //console.log(res.data)
         })
         .catch(err => {
@@ -71,6 +75,24 @@ export default {
       this.isOpen = false
       this.fiche = {}
       this.searchButtonPressed = true
+    },
+    onArrowDown() {
+      if (this.arrowCounter < this.results.length) {
+        this.arrowCounter++
+      }
+    },
+    onArrowUp() {
+      if (this.arrowCounter > 0) {
+        this.arrowCounter--
+      }
+    },
+    onEnter() {
+      if (this.arrowCounter < 0) {
+        this.searchButton()
+      } else {
+        this.showTerm(this.results[this.arrowCounter])
+        this.arrowCounter = -1
+      }
     },
   },
 }
@@ -136,6 +158,7 @@ main {
   padding: 0;
   margin: 0;
 }
+
 .autocomplete li {
   list-style: none;
   padding: 1rem;
@@ -144,6 +167,13 @@ main {
   color: #333333;
   cursor: pointer;
 }
+
+.autocomplete li.is-active,
+.autocomplete li:hover {
+  background-color: #4aae9b;
+  color: white;
+}
+
 .result {
   margin-top: 4rem;
 }

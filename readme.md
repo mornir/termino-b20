@@ -79,6 +79,8 @@ Project structure from [freeCodeCamp tutorial on YouTube](https://www.youtube.co
 
 Idea based of blog post [Leveraging the Power of Elasticsearch: Autocomplete and Fuzzy Search](https://blog.manifold.co/leveraging-the-power-of-elasticsearch-autocomplete-and-fuzzy-search-1d491d3e0b38)
 
+[Building an Autocomplete Component with Vue.js](https://alligator.io/vuejs/vue-autocomplete-component/)
+
 ## References from Elasticsearch docs
 
 [Completion Suggester](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html#search-suggesters-completion)
