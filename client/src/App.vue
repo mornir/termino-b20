@@ -19,6 +19,10 @@
     <div class="result" v-show="fiche.id">
       <Fiche :data="fiche"/>
     </div>
+
+    <div class="result" v-if="searchButtonPressed">
+      <Fiche :data="term._source" v-for="term in searchResults" :key="term.text"/>
+    </div>
     </main>
   </div>
 </template>
@@ -35,6 +39,7 @@ export default {
       search: '',
       isOpen: false,
       fiche: {},
+      searchButtonPressed: false,
     }
   },
   components: {
@@ -43,24 +48,12 @@ export default {
   methods: {
     onChange() {
       if (!this.search) return
-
-      console.log(this.search)
       this.getSuggestions()
     },
     showTerm(term) {
+      this.searchButtonPressed = false
       this.isOpen = false
       this.fiche = term
-      console.log(term)
-    },
-    getJSON() {
-      axios
-        .get(`http://localhost:8081/test`)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     getSuggestions() {
       axios
@@ -75,17 +68,9 @@ export default {
         })
     },
     searchButton() {
-      if (!this.search) return
-      console.log('hello')
-
-      axios
-        .get(`http://localhost:8081/all`)
-        .then(res => {
-          console.log(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.isOpen = false
+      this.fiche = {}
+      this.searchButtonPressed = true
     },
   },
 }

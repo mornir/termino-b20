@@ -1,0 +1,24 @@
+{
+  "properties": {
+    "german": {
+      "type": "text",
+      "fields": {
+        "auto": {
+          "type": "completion",
+          "analyzer": "simple",
+          "search_analyzer": "simple"
+        }
+      }
+    },
+    "french": {
+      "type": "text",
+      "fields": {
+        "auto": {
+          "type": "completion",
+          "analyzer": "simple",
+          "search_analyzer": "simple"
+        }
+      }
+    }
+  }
+}

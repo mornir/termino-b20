@@ -17,7 +17,7 @@ exports.getSuggestions = (req, res, next) => {
           germanSuggester: {
             prefix: text,
             completion: {
-              field: 'german',
+              field: 'german.auto',
               size: size,
               fuzzy: {
                 fuzziness: 'auto',
@@ -27,7 +27,7 @@ exports.getSuggestions = (req, res, next) => {
           frenchSuggester: {
             prefix: text,
             completion: {
-              field: 'french',
+              field: 'french.auto',
               size: size,
               fuzzy: {
                 fuzziness: 'auto',
@@ -68,4 +68,77 @@ exports.getAllTerms = (req, res, next) => {
     })
 }
 
-exports.simpleSearch = (req, res, next) => {}
+exports.simpleSearch = (req, res, next) => {
+  const { text, size } = req.params
+  es
+    .search({
+      index: INDEX_NAME,
+      type: INDEX_TYPE,
+      body: {
+        query: {
+          multi_match: {
+            fields: ['german', 'french'],
+            query: text,
+          },
+        },
+      },
+    })
+    .then(resp => {
+      const hits = resp.hits.hits
+      res.json(hits)
+    })
+    .catch(err => {
+      console.trace(err.message)
+    })
+}
+//with fuzzy match
+exports.simpleSearch2 = (req, res, next) => {
+  const { text, size } = req.params
+  es
+    .search({
+      index: INDEX_NAME,
+      type: INDEX_TYPE,
+      body: {
+        query: {
+          multi_match: {
+            fields: ['german', 'french'],
+            query: text,
+            fuzziness: 'AUTO',
+          },
+        },
+      },
+    })
+    .then(resp => {
+      const hits = resp.hits.hits
+      res.json(hits)
+    })
+    .catch(err => {
+      console.trace(err.message)
+    })
+}
+
+exports.simpleSearch3 = (req, res, next) => {
+  const { text, size } = req.params
+  es
+    .search({
+      index: INDEX_NAME,
+      type: INDEX_TYPE,
+      body: {
+        suggest: {
+          text: text,
+          germanSuggest: {
+            term: {
+              field: 'german',
+            },
+          },
+        },
+      },
+    })
+    .then(resp => {
+      const hits = resp.hits.hits
+      res.json(hits)
+    })
+    .catch(err => {
+      console.trace(err.message)
+    })
+}

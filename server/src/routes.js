@@ -6,6 +6,6 @@ router.get('/all', terminoController.getAllTerms)
 
 router.get('/suggest/:text/:size', terminoController.getSuggestions)
 
-router.get('/simple/:text/:size', terminoController.simpleSearch)
+router.get('/simple/:text/:size', terminoController.simpleSearch3)
 
 module.exports = router
