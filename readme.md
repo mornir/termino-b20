@@ -16,11 +16,11 @@ Connection details:
 
 ## Creating Index
 
-1. Create index
+1.  Create index
 
 In Kibana dashboard, type `PUT termbank`
 
-2. Set mappings
+2.  Set mappings
 
 ```JSON
 PUT termbank/_mapping/fiche
@@ -75,7 +75,10 @@ npm start
 
 ## Resources used
 
-Project structure from [freeCodeCamp tutorial on YouTube](https://www.youtube.com/playlist?list=PLWKjhJtqVAbnadueQ-C5keMQQiQau_i0D)
+Project structure
+[freeCodeCamp tutorial on YouTube](https://www.youtube.com/playlist?list=PLWKjhJtqVAbnadueQ-C5keMQQiQau_i0D)
+
+Wes Bos Tutorial Learn Node
 
 Idea based of blog post [Leveraging the Power of Elasticsearch: Autocomplete and Fuzzy Search](https://blog.manifold.co/leveraging-the-power-of-elasticsearch-autocomplete-and-fuzzy-search-1d491d3e0b38)
 

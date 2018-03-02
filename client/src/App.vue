@@ -33,6 +33,9 @@
 import Fiche from './components/Fiche.vue'
 import axios from 'axios'
 
+const url = 'https://server-gnyjbtvgir.now.sh/'
+//http://localhost:8081/
+
 export default {
   name: 'app',
   data() {
@@ -61,7 +64,7 @@ export default {
     },
     getSuggestions() {
       axios
-        .get(`http://localhost:8081/suggest/${this.search}/10`)
+        .get(`${url}suggest/${this.search}/10`)
         .then(res => {
           this.isOpen = true
           this.results = res.data

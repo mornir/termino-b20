@@ -1,5 +1,5 @@
-const logger = require('../config/logdna')
-const es = require('../config/elasticsearch')
+//const logger = require('../config/logdna')
+const es = require('../../start')
 
 const INDEX_NAME = 'termbank'
 const INDEX_TYPE = 'fiche'

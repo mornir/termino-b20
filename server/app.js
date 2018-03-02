@@ -2,20 +2,22 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-const logger = require('./config/logdna')
-const elasticsearch = require('./config/elasticsearch')
-const routes = require('./routes')
 
+//const logger = require('./src/config/logdna')
+const routes = require('./src/routes')
+
+// create Express app
 const app = express()
 
 app.use(morgan('combined'))
+
+// Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json())
 
-//TODO: check if it is secure
+//TODO: Restric origin
 app.use(cors())
 
+// Handle routes
 app.use('/', routes)
 
-app.listen(process.env.PORT || 8081, function() {
-  logger.logger.log('App is running')
-})
+module.exports = app

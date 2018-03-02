@@ -1,4 +1,4 @@
-const logdna = require('logdna')
+/* const logdna = require('logdna')
 const env = require('node-env-file')
 
 env('.env')
@@ -10,4 +10,4 @@ logArgs.index_meta = true
 
 const logger = logdna.setupDefaultLogger(process.env.LOGDNA_KEY, logArgs)
 
-exports.logger = logger
+exports.logger = logger */
