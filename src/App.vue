@@ -31,10 +31,8 @@
 
 <script>
 import Fiche from './components/Fiche.vue'
-import axios from 'axios'
 
-const url = 'https://server-gnyjbtvgir.now.sh/'
-//http://localhost:8081/
+import { getSuggestions } from './queries'
 
 export default {
   name: 'app',
@@ -52,27 +50,24 @@ export default {
     Fiche,
   },
   methods: {
-    onChange() {
-      if (!this.search) return
-      this.getSuggestions()
+    async onChange() {
+      if (!this.search) return (this.isOpen = false)
+      try {
+        const res = await getSuggestions(this.search)
+        this.isOpen = true
+        const frenchSuggestions = res.data.suggest.frenchSuggester[0].options
+        const germanSuggestions = res.data.suggest.germanSuggester[0].options
+        this.results = [...frenchSuggestions, ...germanSuggestions]
+      } catch (e) {
+        this.isOpen = false
+        console.log(e)
+      }
     },
     showTerm(term) {
       this.searchButtonPressed = false
       this.isOpen = false
       this.fiche = term._source
       this.search = term.text
-    },
-    getSuggestions() {
-      axios
-        .get(`${url}suggest/${this.search}/10`)
-        .then(res => {
-          this.isOpen = true
-          this.results = res.data
-          //console.log(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     searchButton() {
       this.isOpen = false
