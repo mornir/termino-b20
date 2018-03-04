@@ -4,18 +4,18 @@
     <main>
       <div class="search">
           <div class="autcompleteSearch">
-          <input type="text" class="searchInput" v-model.trim="search" @input="onChange" @keyup.down="onArrowDown"
+              <input type="text" class="searchInput" v-model.trim="search" @input="onChange" @keyup.down="onArrowDown"
     @keyup.up="onArrowUp"
     @keyup.enter="onEnter"/>
-          <ul class="autocomplete" v-show="isOpen">
+              <ul class="autocomplete" v-show="isOpen">
 
-            <li v-for="(term, index) in results" :class="{ 'is-active': index === arrowCounter }"
+                <li v-for="(term, index) in results" :class="{ 'is-active': index === arrowCounter }"
               :key="term.text" @click="showTerm(term) ">{{term.text}}</li>
 
-          </ul>
-    </div>
+              </ul>
+          </div>
     
-    <button class="searchButton" @click="searchButton">Suchen</button>
+          <button class="searchButton" @click="searchButton">Suchen</button>
     </div>
 
     <div class="result" v-show="fiche.id">
@@ -139,18 +139,6 @@ main {
   align-items: start;
 }
 
-.autcompleteSearch {
-  flex-grow: 2;
-}
-
-.searchInput {
-  width: 100%;
-  font-size: 2.5rem;
-  padding: 1rem;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-  border: none;
-}
-
 .searchButton {
   flex-grow: 1;
   background-color: #16a085;
@@ -163,10 +151,26 @@ main {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
+.autcompleteSearch {
+  flex-grow: 2;
+  position: relative;
+  width: 70%;
+}
+
+.searchInput {
+  width: 100%;
+  font-size: 2.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
 .autocomplete {
+  width: 100%;
   background-color: white;
   padding: 0;
   margin: 0;
+  position: absolute;
 }
 
 .autocomplete li {
