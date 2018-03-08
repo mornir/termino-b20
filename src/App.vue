@@ -4,7 +4,7 @@
     <main>
       <div class="search">
           <div class="autcompleteSearch">
-              <input type="text" class="searchInput" v-model.trim="search" @input="onChange" @keyup.down="onArrowDown"
+              <input type="search" class="searchInput" v-model.trim="search" @input="onChange" @keyup.down="onArrowDown"
     @keyup.up="onArrowUp"
     @keyup.enter="onEnter"/>
               <ul class="autocomplete" v-show="isOpen">
