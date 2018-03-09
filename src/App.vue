@@ -4,7 +4,7 @@
     <main>
       <div class="search">
           <div class="autcompleteSearch">
-              <input type="search" class="searchInput" v-model.trim="search" @input="onChange" @keyup.down="onArrowDown"
+              <input type="search" placeholder="Suchen" class="searchInput" v-model.trim="search" @input="onChange" @keyup.down="onArrowDown"
     @keyup.up="onArrowUp"
     @keyup.enter="onEnter"/>
               <ul class="autocomplete" v-show="isOpen">
@@ -115,7 +115,19 @@ body {
   font-weight: 300;
   min-height: 100vh;
   background-color: #cccccc;
+  background-image: url('./assets/topography.svg');
 }
+
+/* body {
+  background-image: url("./images/topography.svg"),
+    linear-gradient(110deg, #f93d66, #6d47d9);
+  background-size: 340px, auto;
+  min-height: calc(100vh - 100px);
+  margin: 50px;
+  background-position: fixed;
+  
+}
+ */
 
 header {
   padding: 1rem;
