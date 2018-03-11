@@ -118,24 +118,13 @@ body {
   background-image: url('./assets/topography.svg');
 }
 
-/* body {
-  background-image: url("./images/topography.svg"),
-    linear-gradient(110deg, #f93d66, #6d47d9);
-  background-size: 340px, auto;
-  min-height: calc(100vh - 100px);
-  margin: 50px;
-  background-position: fixed;
-  
-}
- */
-
 header {
   padding: 1rem;
   display: block;
   margin: 0 auto 4rem;
   color: #ffffff;
   text-align: center;
-  font-size: 5rem;
+  font-size: 3.7rem;
   background-color: #16a085;
   font-weight: 400;
 }
@@ -149,6 +138,7 @@ main {
   width: 100%;
   display: flex;
   align-items: start;
+  flex-wrap: wrap;
 }
 
 .searchButton {
@@ -156,11 +146,11 @@ main {
   background-color: #16a085;
   color: #ffffff;
   font-size: 2.5rem;
-  margin-left: 1rem;
+  /*margin-left: 1rem;*/
   border: none;
   padding: 1rem;
   cursor: pointer;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .autcompleteSearch {
@@ -202,5 +192,29 @@ main {
 
 .result {
   margin-top: 4rem;
+}
+
+@media (pointer: coarse) {
+  .searchButton {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 500px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  html {
+    font-size: 8px;
+  }
 }
 </style>

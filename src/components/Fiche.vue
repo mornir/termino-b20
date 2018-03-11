@@ -2,11 +2,11 @@
   <div class="fiche">
     <div class="language">
       <!-- http://flaglane.com/download/german-flag/ -->
-      <img src="../assets/german-flag-small.png" alt="german-flag" width="50px">
+      <img src="../assets/german-flag-small.png" alt="german-flag">
       <span class="term">{{data.german}}</span>
     </div>
     <div class="language">
-      <img src="../assets/french-flag-small.png" alt="french-flag" width="50px">
+      <img src="../assets/french-flag-small.png" alt="french-flag">
       <span class="term">{{data.french}}</span>
     </div>
   </div>
@@ -36,6 +36,7 @@ export default {
 
 img {
   vertical-align: text-bottom;
+  width: 4rem;
 }
 
 .term {
