@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>Terminology der B20</header>
+    <header>Terminologie der B20</header>
     <main>
       <div class="search">
           <div class="autcompleteSearch">
