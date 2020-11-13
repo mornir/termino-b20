@@ -1,6 +1,4 @@
-# Terminologie der B20
-
-> Fill text
+# Terminology Management with Google Sheet and Elasticsearch
 
 ## Connecting Elasticsearch to Google Sheet
 
